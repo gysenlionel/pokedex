@@ -2,8 +2,8 @@ import * as React from "react";
 import { Pokemon } from "../types/data.model";
 import pkball from "../assets/images/pokeball.png";
 import pkballCol from "../assets/images/pokeball-color.png";
-import Loader from "../components/Loader";
-import CartDetails from "../pages/CartDetails";
+// import Loader from "../components/Loader";
+// import CartDetails from "../pages/CartDetails";
 import { Link } from "react-router-dom";
 
 interface ICartProps {
