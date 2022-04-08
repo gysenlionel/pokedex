@@ -1,6 +1,6 @@
 import * as React from "react";
 import Cart from "../components/Cart";
-import Filters from "../components/Filters";
+// import Filters from "../components/Filters";
 import { Pokemon } from "../types/data.model";
 import Loader from "../components/Loader";
 import { getPokemons } from "../hooks/getPokemons";
