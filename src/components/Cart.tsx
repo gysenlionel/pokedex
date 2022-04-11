@@ -10,8 +10,7 @@ interface ICartProps {
   pokemon: Pokemon;
 }
 
-const Cart: React.FunctionComponent<ICartProps> = (props) => {
-  const { pokemon } = props;
+const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   const [isShown, setIsShown] = React.useState<boolean>(false);
 
   return (

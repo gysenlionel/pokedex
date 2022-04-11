@@ -57,7 +57,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   console.log(pokemons);
 
   return (
-    <div className="relative flex py-3 px-4 justify-center bg-neutral-50">
+    <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
       {/* <div className="px-2 mr-4">
         <Filters />
       </div> */}
@@ -79,7 +79,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 

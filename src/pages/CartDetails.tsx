@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Pokemon } from "../types/data.model";
 import { getPokemon } from "../hooks/getPokemon";
 import pkball from "../assets/images/pokeball.png";
+import Tabs from "../components/Tabs";
 
 interface ICartDetailsProps {}
 
@@ -19,7 +20,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
   console.log(pokeData);
 
   return (
-    <div className="flex justify-center items-center h-[90vh] bg-neutral-50">
+    <main className="flex justify-center items-center h-[90vh] bg-neutral-50">
       <div
         className={` ${
           pokeData?.types[0].type.name === "electric"
@@ -64,7 +65,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
         <img
           src={pkball}
           alt="pokeball"
-          className="w-96 h-96 absolute top-48 right-5  opacity-20 "
+          className="w-96 h-96 absolute top-48 right-5  opacity-20 z-10"
         />
         <div className="flex justify-around items-center">
           <div>
@@ -92,8 +93,20 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
             level-{pokeData?.base_experience}
           </p>
         </div>
+        <div>
+          <img
+            className="object-contain h-56 w-full"
+            src={pokeData?.sprites.other.dream_world.front_default}
+            alt="pokemon"
+          />
+        </div>
+        <div className="bg-slate-100 rounded-t-lg ">
+          <div>
+            <Tabs />
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
