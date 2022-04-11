@@ -8,7 +8,7 @@ export const getNextPage = async (loadAsync: boolean, nextUrl: string,
 
     if (loadAsync) {
 
-      let res = await axios.get(nextUrl);
+      const res = await axios.get(nextUrl);
       setNextUrl(res.data.next);
       res.data.results.forEach(async (pokemon: Pokemons) => {
         const poke = await axios.get(`${baseUrl}${pokemon.name}`);
