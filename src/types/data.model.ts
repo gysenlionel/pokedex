@@ -4,6 +4,20 @@ export interface Pokemon {
     height: number;
     weight:number;
     base_experience:number;
+    species:{
+        name: string;
+    },
+    stats:[{
+        base_stat:number;
+        stat:{
+            name:string;
+        }
+    }]
+    abilities: [{
+        ability:{
+            name: string;
+        },
+    }],
     sprites:{
         front_default: string;
         other:{

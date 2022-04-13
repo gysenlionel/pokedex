@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 // import Loader from "./components/Loader";
 import CartDetails from "./pages/CartDetails";
+
 function App() {
   return (
     <>
