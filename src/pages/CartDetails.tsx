@@ -18,23 +18,12 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
     getPokemon(baseUrl, setPokeData);
   }, [baseUrl]);
 
-  // responsive
-  let [width, setWidth] = useState(window.innerWidth);
-  let updateDimension = () => {
-    setWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", updateDimension);
-    return () => window.removeEventListener("resize", updateDimension);
-  });
-
   console.log(pokeData);
 
   return (
     <main
-      className={`flex justify-center items-center   ${
-        width > 768 ? "mx-20" : null
-      }`}
+      className={`flex justify-center items-center 
+        mx-0 md:mx-20`}
     >
       <div className="bg-slate-100 w-[100vw] min-h-[87vh]  mt-[3vh] ">
         <div
