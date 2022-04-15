@@ -1,4 +1,4 @@
-export const bgColor = (type: string) => {
+export const bgColor = (type: string | undefined ) => {
     let color: string = "";
 
     switch (type) {
@@ -12,7 +12,7 @@ export const bgColor = (type: string) => {
         color = "#6890F0";
         break;
       case "grass":
-        color = "#78C850";
+        color = "#27CB4FFF";
         break;
       case "electric":
         color = "#F8D030FF";
@@ -32,7 +32,7 @@ export const bgColor = (type: string) => {
       case "flying":
         color = "#A890F0";
         break;
-      case "psycho":
+      case "psychic":
         color = "#F85888";
         break;
       case "bug":
@@ -48,14 +48,14 @@ export const bgColor = (type: string) => {
         color = "#5A5979FF";
         break;
       case "dragon":
-        color = "#7038F8";
+        color = "#61CAD9FF";
         break;
       case "steel":
-        color = "#B8B8D0";
+        color = "#42BD94";
         break;
-      case "Fairy":
+      case "fairy":
         color = "#F0B6BC";
         break;
     }
-    return `bg-[${color}]`;
+    return `${color}`;
   };
