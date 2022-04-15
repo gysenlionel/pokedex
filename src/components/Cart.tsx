@@ -2,9 +2,11 @@ import * as React from "react";
 import { Pokemon } from "../types/data.model";
 import pkball from "../assets/images/pokeball.png";
 import pkballCol from "../assets/images/pokeball-color.png";
+import { Link } from "react-router-dom";
+import { badgeType } from "../utils/badgeType";
+
 // import Loader from "../components/Loader";
 // import CartDetails from "../pages/CartDetails";
-import { Link } from "react-router-dom";
 
 interface ICartProps {
   pokemon: Pokemon;
@@ -16,6 +18,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   return (
     <div>
       <Link to={`${pokemon.name}`}>
+        {/* problem with twin.macro when refacto switch can't use transform tailwind with twin */}
         <div
           onMouseOver={() => setIsShown(true)}
           onMouseOut={() => setIsShown(false)}
@@ -54,7 +57,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
             : pokemon.types[0].type.name === "dragon"
             ? "bg-[#61CAD9FF]"
             : pokemon.types[0].type.name === "steel"
-            ? "bg-[#F0B6BC]"
+            ? "bg-[#42BD94]"
             : pokemon.types[0].type.name === "fairy"
             ? "bg-[#F0B6BC]"
             : "bg-[#fff]"
@@ -76,48 +79,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
             className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
           />
           <div className="absolute w-10 h-10 bottom-2 right-4 text-center mr-1">
-            <img
-              src={
-                pokemon.types[0].type.name === "electric"
-                  ? "/images/electric.png"
-                  : pokemon.types[0].type.name === "normal"
-                  ? "/images/normal.png"
-                  : pokemon.types[0].type.name === "fire"
-                  ? "/images/feu.png"
-                  : pokemon.types[0].type.name === "water"
-                  ? "/images/water.png"
-                  : pokemon.types[0].type.name === "grass"
-                  ? "/images/grass.png"
-                  : pokemon.types[0].type.name === "ice"
-                  ? "/images/ice.png"
-                  : pokemon.types[0].type.name === "fighting"
-                  ? "/images/fighting.png"
-                  : pokemon.types[0].type.name === "poison"
-                  ? "/images/poison.png"
-                  : pokemon.types[0].type.name === "ground"
-                  ? "/images/ground.png"
-                  : pokemon.types[0].type.name === "flying"
-                  ? "/images/flying.png"
-                  : pokemon.types[0].type.name === "psychic"
-                  ? "/images/psychic.png"
-                  : pokemon.types[0].type.name === "bug"
-                  ? "/images/bug.png"
-                  : pokemon.types[0].type.name === "rock"
-                  ? "/images/rock.png"
-                  : pokemon.types[0].type.name === "ghost"
-                  ? "/images/ghost.png"
-                  : pokemon.types[0].type.name === "dark"
-                  ? "/images/dark.png"
-                  : pokemon.types[0].type.name === "dragon"
-                  ? "/images/dragon.png"
-                  : pokemon.types[0].type.name === "steel"
-                  ? "/images/steel.png"
-                  : pokemon.types[0].type.name === "fairy"
-                  ? "/images/fairy.png"
-                  : ""
-              }
-              alt="types"
-            />
+            <img src={`${badgeType(pokemon.types[0].type.name)}`} alt="types" />
             <p className="absolute w-10 h-9 bottom-8 text-white font-normal">
               {pokemon.types[0].type.name}
             </p>
@@ -125,45 +87,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
           <div className="absolute w-10 h-10 bottom-20 right-4 text-center mr-1">
             {pokemon.types.length > 1 ? (
               <img
-                src={
-                  pokemon?.types[1]?.type?.name === "electric"
-                    ? "/images/electric.png"
-                    : pokemon?.types[1]?.type?.name === "normal"
-                    ? "/images/normal.png"
-                    : pokemon?.types[1]?.type?.name === "fire"
-                    ? "/images/feu.png"
-                    : pokemon?.types[1]?.type?.name === "water"
-                    ? "/images/water.png"
-                    : pokemon?.types[1]?.type?.name === "grass"
-                    ? "/images/grass.png"
-                    : pokemon?.types[1]?.type?.name === "ice"
-                    ? "/images/ice.png"
-                    : pokemon?.types[1]?.type?.name === "fighting"
-                    ? "/images/fighting.png"
-                    : pokemon?.types[1]?.type?.name === "poison"
-                    ? "/images/poison.png"
-                    : pokemon?.types[1]?.type?.name === "ground"
-                    ? "/images/ground.png"
-                    : pokemon?.types[1]?.type?.name === "flying"
-                    ? "/images/flying.png"
-                    : pokemon?.types[1]?.type?.name === "psychic"
-                    ? "/images/psychic.png"
-                    : pokemon?.types[1]?.type?.name === "bug"
-                    ? "/images/bug.png"
-                    : pokemon?.types[1]?.type?.name === "rock"
-                    ? "/images/rock.png"
-                    : pokemon?.types[1]?.type?.name === "ghost"
-                    ? "/images/ghost.png"
-                    : pokemon?.types[1]?.type?.name === "dark"
-                    ? "/images/dark.png"
-                    : pokemon?.types[1]?.type?.name === "dragon"
-                    ? "/images/dragon.png"
-                    : pokemon?.types[1]?.type?.name === "steel"
-                    ? "/images/steel.png"
-                    : pokemon?.types[1]?.type?.name === "fairy"
-                    ? "/images/fairy.png"
-                    : ""
-                }
+                src={`${badgeType(pokemon?.types[1]?.type?.name)}`}
                 alt="types"
               />
             ) : null}

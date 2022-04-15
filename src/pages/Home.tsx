@@ -1,4 +1,5 @@
 import * as React from "react";
+import Header from "../components/Header";
 import Cart from "../components/Cart";
 // import Filters from "../components/Filters";
 import { Pokemon } from "../types/data.model";
@@ -57,29 +58,32 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   console.log(pokemons);
 
   return (
-    <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
-      {/* <div className="px-2 mr-4">
+    <>
+      <Header />
+      <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
+        {/* <div className="px-2 mr-4">
         <Filters />
       </div> */}
-      <div
-        className="grid lg:grid-cols-4 md:grid-cols-3
+        <div
+          className="grid lg:grid-cols-4 md:grid-cols-3
     sm:grid-cols-2 gap-4"
-      >
-        {pokemons.map((pokemon, index) => (
-          <div
-            key={`${pokemon.id}${index}`}
-            // onClick={() => selectPokemon(viewDetail, pokemon.id, setDetail)}
-          >
-            <Cart pokemon={pokemon} key={pokemon.id} />
-          </div>
-        ))}
-        {loadPoke && (
-          <div className=" absolute bottom-10 left-1/2 ">
-            <Loader />
-          </div>
-        )}
-      </div>
-    </main>
+        >
+          {pokemons.map((pokemon, index) => (
+            <div
+              key={`${pokemon.id}${index}`}
+              // onClick={() => selectPokemon(viewDetail, pokemon.id, setDetail)}
+            >
+              <Cart pokemon={pokemon} key={pokemon.id} />
+            </div>
+          ))}
+          {loadPoke && (
+            <div className=" absolute bottom-10 left-1/2 ">
+              <Loader />
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 };
 
