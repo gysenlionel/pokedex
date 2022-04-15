@@ -18,7 +18,7 @@ interface InputProps {
 const BackgroundCol = styled.div<InputProps>`
   background-color: ${(props) => bgColor(props.typeName)};
   ${tw`
-   h-80 rounded-t-lg
+   h-80 rounded-none md:rounded-t-lg 
   `}
 `;
 

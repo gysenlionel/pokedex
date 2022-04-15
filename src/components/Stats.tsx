@@ -18,7 +18,7 @@ const ProgressBar = styled.div<Progressbar>`
    rounded-full
   `}
   background-color: ${({ index }) => (index % 2 === 0 ? "#6feb8a" : "#ec585d")};
-  width: ${({ width }) => width}%;
+  width: ${({ width }) => (width > 115 ? 115 : width)}%;
 `;
 
 const Stats: React.FunctionComponent<IStatsProps> = ({ pokeData }) => {
