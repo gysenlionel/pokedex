@@ -12,7 +12,12 @@ export interface Pokemon {
         stat:{
             name:string;
         }
-    }]
+    }],
+    held_items:[{
+        item:{
+        name:string;
+    }
+}],
     abilities: [{
         ability:{
             name: string;

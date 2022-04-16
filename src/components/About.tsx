@@ -14,7 +14,8 @@ const About: React.FunctionComponent<IAboutProps> = ({ pokeData }) => {
           <h4 className="">Height</h4>
           <h4 className="">Weight</h4>
           <h4 className="">Abilities</h4>
-          <h3 className="py-2 text-lg text-black font-semibold"> Breeding</h3>
+          <h4>Held items</h4>
+          {/* <h3 className="py-2 text-lg text-black font-semibold"> Held items</h3> */}
         </div>
         <div className="ml-5 font-bold text-normal">
           <p>{pokeData?.species.name}</p>
@@ -27,6 +28,18 @@ const About: React.FunctionComponent<IAboutProps> = ({ pokeData }) => {
                 {pokeData?.abilities.length - 1 !== i && ", "}
               </span>
             ))}
+          </p>
+          <p>
+            {pokeData?.held_items && pokeData?.held_items?.length <= 0 ? (
+              <span>nothing</span>
+            ) : (
+              pokeData?.held_items?.map((item, i) => (
+                <span key={item.item.name}>
+                  {item.item.name}
+                  {pokeData?.held_items.length - 1 !== i && ", "}
+                </span>
+              ))
+            )}
           </p>
         </div>
       </div>

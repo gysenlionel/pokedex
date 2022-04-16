@@ -22,9 +22,6 @@ const ProgressBar = styled.div<Progressbar>`
 `;
 
 const Stats: React.FunctionComponent<IStatsProps> = ({ pokeData }) => {
-  const data: any = pokeData?.stats.map((s) => s.base_stat);
-
-  console.log(data);
   return (
     <div>
       <div className="flex justify-center ">
