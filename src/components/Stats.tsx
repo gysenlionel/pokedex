@@ -14,7 +14,7 @@ interface Progressbar {
 
 const ProgressBar = styled.div<Progressbar>`
   ${tw`
-   h-2.5
+   h-2
    rounded-full
   `}
   background-color: ${({ index }) => (index % 2 === 0 ? "#6feb8a" : "#ec585d")};
@@ -43,7 +43,7 @@ const Stats: React.FunctionComponent<IStatsProps> = ({ pokeData }) => {
               className="h-6 flex items-center"
               key={`${stat.stat.name}${index}`}
             >
-              <div className="w-24 sm:w-36 lg:w-48 bg-gray-300 rounded-full h-2.5 ">
+              <div className="w-24 sm:w-36 lg:w-48 bg-gray-300 rounded-full h-2 ">
                 <ProgressBar width={stat.base_stat} index={index}></ProgressBar>
               </div>
             </div>

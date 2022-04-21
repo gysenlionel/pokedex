@@ -1,21 +1,29 @@
 import * as React from "react";
-import { Pokemon } from "../types/data.model";
+import { Pokemon, Species } from "../types/data.model";
 
 interface IAboutProps {
   pokeData: Pokemon | undefined;
+  speciesDetails: Species | undefined;
 }
 
-const About: React.FunctionComponent<IAboutProps> = ({ pokeData }) => {
+const About: React.FunctionComponent<IAboutProps> = ({
+  pokeData,
+  speciesDetails,
+}) => {
   return (
     <div>
-      <div className="flex justify-center">
-        <div className="mr-5 text-slate-700 font-medium">
-          <h4 className=" ">Species</h4>
-          <h4 className="">Height</h4>
-          <h4 className="">Weight</h4>
-          <h4 className="">Abilities</h4>
+      <div className="flex justify-center ml-2">
+        <div className="mr-5 text-slate-700 font-medium ">
+          <h4>Species</h4>
+          <h4>Height</h4>
+          <h4>Weight</h4>
+          <h4>Abilities</h4>
           <h4>Held items</h4>
-          {/* <h3 className="py-2 text-lg text-black font-semibold"> Held items</h3> */}
+          <h4>Habitat</h4>
+          <h4>Egg groups</h4>
+          {/* <h3 className="py-2 text-lg text-black font-semibold mt-2">
+            Description
+          </h3> */}
         </div>
         <div className="ml-5 font-bold text-normal">
           <p>{pokeData?.species.name}</p>
@@ -41,10 +49,23 @@ const About: React.FunctionComponent<IAboutProps> = ({ pokeData }) => {
               ))
             )}
           </p>
+          <p>{speciesDetails?.habitat.name}</p>
+          <p>
+            {speciesDetails?.egg_groups.map((egg, i) => (
+              <span key={egg.name}>
+                {egg.name}
+                {speciesDetails?.egg_groups.length - 1 !== i && ", "}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
 
-      <div className="flex justify-center"></div>
+      {/* <div className="flex flex-col items-center">
+        <p className=" text-slate-700 font-sm mb-5 mx-2 sm:mx-11">
+          {speciesDetails?.flavor_text_entries[0].flavor_text}
+        </p>
+      </div> */}
     </div>
   );
 };

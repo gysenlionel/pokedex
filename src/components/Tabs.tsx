@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TabContent from "../subComponents/TabsContent";
-import { Pokemon } from "../types/data.model";
+import { Pokemon, Species } from "../types/data.model";
 import About from "./About";
 import Stats from "./Stats";
+import { getSpeciesDetails } from "../hooks/getSpeciesDetails";
+import Evolution from "./Evolution";
 
 interface ITabsProps {
   pokeData: Pokemon | undefined;
+  fetchSpeciesDetails: Boolean;
 }
 
-const Tabs: React.FunctionComponent<ITabsProps> = ({ pokeData }) => {
+const Tabs: React.FunctionComponent<ITabsProps> = ({
+  pokeData,
+  fetchSpeciesDetails,
+}) => {
   const [toggleState, setToggleState] = useState(1);
-
+  const [speciesDetails, setSpeciesDetails] = useState<Species>();
+  const [fetchEvol, setFetchEvol] = useState(false);
+  // Tabs
   const toggleTab = (index: number) => {
     setToggleState(index);
   };
+  // fetch
+  const urlSpecies = pokeData?.species.url ?? "";
+  useEffect(() => {
+    setFetchEvol(false);
+    if (fetchSpeciesDetails)
+      getSpeciesDetails(urlSpecies, setSpeciesDetails, setFetchEvol);
+  }, [urlSpecies, fetchSpeciesDetails]);
+  // console.log(speciesDetails);
+
   return (
     <div className="z-0">
       <div className="flex justify-center py-5 ">
@@ -47,13 +64,13 @@ const Tabs: React.FunctionComponent<ITabsProps> = ({ pokeData }) => {
       </div>
       <div>
         <TabContent toggleState={toggleState} tabNumber={1}>
-          <About pokeData={pokeData} />
+          <About pokeData={pokeData} speciesDetails={speciesDetails} />
         </TabContent>
         <TabContent toggleState={toggleState} tabNumber={2}>
           <Stats pokeData={pokeData} />
         </TabContent>
         <TabContent toggleState={toggleState} tabNumber={3}>
-          <p>bonjour3</p>
+          <Evolution speciesDetails={speciesDetails} fetchEvol={fetchEvol} />
         </TabContent>
       </div>
     </div>

@@ -55,7 +55,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     return () => window.removeEventListener("scroll", loadMore);
   }, [loadPoke, loadAsync, nextUrl, baseUrl]);
 
-  console.log(pokemons);
+  // console.log(pokemons);
 
   return (
     <>
