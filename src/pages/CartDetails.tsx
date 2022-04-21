@@ -18,21 +18,23 @@ interface InputProps {
 const BackgroundCol = styled.div<InputProps>`
   background-color: ${(props) => bgColor(props.typeName)};
   ${tw`
-   h-80 rounded-t-lg
+   h-80 rounded-none md:rounded-t-lg 
   `}
 `;
 
 const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
   const [pokeData, setPokeData] = useState<Pokemon>();
+  const [fetchSpeciesDetails, setFecthSpecDetails] = useState(false);
   let { pokemon } = useParams();
 
   // fetch
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   useEffect(() => {
-    getPokemon(baseUrl, setPokeData);
+    setFecthSpecDetails(false);
+    getPokemon(baseUrl, setPokeData, setFecthSpecDetails);
   }, [baseUrl]);
 
-  console.log(pokeData);
+  // console.log(pokeData);
 
   return (
     <main
@@ -50,6 +52,27 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
           </div>
           <div className="flex justify-around items-center">
             <div>
+              {/* eslint-disable */}
+              <a
+                onClick={() => {
+                  window.location.href = "/";
+                }}
+              >
+                <svg
+                  className="w-6 h-6 mt-6 absolute text-white cursor-pointer"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  ></path>
+                </svg>
+              </a>
               <h1 className="text-white font-extrabold text-3xl  mt-14">
                 {pokeData?.name}
               </h1>
@@ -71,7 +94,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
               </div>
             </div>
             <p className="text-white font-bold text-xl mt-14 ">
-              level-{pokeData?.base_experience}
+              Exp-{pokeData?.base_experience}
             </p>
           </div>
           <div className="flex justify-center">
@@ -84,7 +107,10 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
         </BackgroundCol>
         <div className="bg-slate-100 rounded-t-lg relative bottom-1">
           <div className="pt-2">
-            <Tabs pokeData={pokeData} />
+            <Tabs
+              pokeData={pokeData}
+              fetchSpeciesDetails={fetchSpeciesDetails}
+            />
           </div>
         </div>
       </div>
