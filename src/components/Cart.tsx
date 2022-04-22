@@ -16,7 +16,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   const [isShown, setIsShown] = React.useState<boolean>(false);
 
   return (
-    <div>
+    <div className="z-20 relative">
       <Link to={`${pokemon.name}`}>
         {/* problem with twin.macro when refacto switch can't use transform tailwind with twin */}
         <div

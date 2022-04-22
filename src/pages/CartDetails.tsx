@@ -66,9 +66,9 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   ></path>
                 </svg>
@@ -98,11 +98,25 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
             </p>
           </div>
           <div className="flex justify-center">
-            <img
-              className="object-contain h-48 w-48 absolute z-10"
-              src={pokeData?.sprites.other.dream_world.front_default}
-              alt="pokemon"
-            />
+            {pokeData?.sprites.other.dream_world.front_default !== null ? (
+              <img
+                className="object-contain h-48 w-48 absolute z-10"
+                src={pokeData?.sprites.other.dream_world.front_default}
+                alt="pokemon"
+              />
+            ) : pokeData?.sprites.other.home.front_default !== null ? (
+              <img
+                className="object-contain h-48 w-48 absolute z-10"
+                src={pokeData?.sprites.other.home.front_default}
+                alt="Pokemon"
+              />
+            ) : (
+              <img
+                src={pokeData.sprites.front_default}
+                alt="Pokemon"
+                className="object-contain h-48 w-48 absolute z-10"
+              />
+            )}
           </div>
         </BackgroundCol>
         <div className="bg-slate-100 rounded-t-lg relative bottom-1">
