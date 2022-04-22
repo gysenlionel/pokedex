@@ -10,7 +10,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:pokemon" element={<CartDetails />} />
-          {/* <Route path="load" element={<Loader />} /> */}
+          <Route
+            path="load"
+            // element={<Loader fullScreen="w-screen h-screen" />}
+          />
         </Routes>
       </BrowserRouter>
     </>

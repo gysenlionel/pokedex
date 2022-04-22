@@ -29,7 +29,7 @@ const Tabs: React.FunctionComponent<ITabsProps> = ({
     if (fetchSpeciesDetails)
       getSpeciesDetails(urlSpecies, setSpeciesDetails, setFetchEvol);
   }, [urlSpecies, fetchSpeciesDetails]);
-  // console.log(speciesDetails);
+  console.log(speciesDetails);
 
   return (
     <div className="z-0">

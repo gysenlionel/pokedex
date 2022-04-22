@@ -29,6 +29,9 @@ export interface Pokemon {
         other:{
             dream_world:{
                 front_default:string;
+            },
+            home:{
+                front_default:string;
             }
         },
         versions:{
@@ -72,6 +75,10 @@ export interface Pokemons {
     },
     evolution_chain:{
         url:string;
+    },
+    base_happiness:number;
+    shape:{
+        name:string;
     }
   }
   
@@ -83,19 +90,19 @@ interface evolution_details{
                 evolves_to?:[evolution_details]
 }
 
-interface species{
+interface specie{
     name:string;
 }
 export interface Evolution_chain {
         evolves_to?:[{
-            species?:species;
+            species?:specie;
             evolution_details?:[evolution_details],
             evolves_to?:[{
                 evolution_details?:[evolution_details],
-                species?: species;
+                species?: specie;
             }]
         }],
-        species:species;
+        species:specie;
 }
 
   
