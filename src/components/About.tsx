@@ -12,8 +12,8 @@ const About: React.FunctionComponent<IAboutProps> = ({
 }) => {
   return (
     <div className="mb-2">
-      <div className="flex justify-center ml-2">
-        <div className="grid grid-cols-2 gap-x-4">
+      <div className="flex justify-center ml-10">
+        <div className="grid grid-cols-2 gap-x-1 lg:gap-x-4 ">
           <h4 className="text-slate-700 font-medium ">Species</h4>
           <p className="font-bold text-normal">{pokeData?.species.name}</p>
           <h4 className=" text-slate-700 font-medium ">Height</h4>
