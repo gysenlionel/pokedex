@@ -11,7 +11,7 @@ interface IHomeProps {}
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = React.useState<string>("");
-  const [loading, setLoading] = React.useState(true);
+  // const [loading, setLoading] = React.useState(true);
   // state pour infinite scroll
   const [loadPoke, setLoadPoke] = React.useState<boolean>(true);
   const [loadAsync, setLoadAsync] = React.useState<boolean>(false);
