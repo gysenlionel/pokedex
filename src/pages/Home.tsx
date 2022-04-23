@@ -6,18 +6,20 @@ import { Pokemon } from "../types/data.model";
 import Loader from "../components/Loader";
 import { getPokemons } from "../hooks/getPokemons";
 import { getNextPage } from "../hooks/getNextPage";
+import Search from "../components/Search";
 interface IHomeProps {}
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = React.useState<string>("");
+  const [search, setSearch] = React.useState("");
   // const [loading, setLoading] = React.useState(true);
   // state pour infinite scroll
   const [loadPoke, setLoadPoke] = React.useState<boolean>(true);
   const [loadAsync, setLoadAsync] = React.useState<boolean>(false);
 
   // fetch data
-  const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
+  const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
   React.useEffect(() => {
     getPokemons(baseUrl, setPokemons, setNextUrl);
   }, [baseUrl]);
@@ -56,7 +58,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   }, [loadPoke, loadAsync, nextUrl, baseUrl]);
 
   // console.log(pokemons);
-
+  console.log(search);
   // React.useEffect(() => {
   //   const loadData = async () => {
   //     await new Promise((r) => setTimeout(r, 2000));
@@ -74,6 +76,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
       ) : (
         <> */}
       <Header />
+      <Search setSearch={setSearch} />
       <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
         <div
           className="grid lg:grid-cols-4 md:grid-cols-3
@@ -94,7 +97,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         <div className=" absolute bottom-24 translate-x-1/2 rounded-full border-neutral-900 border-2 animate-bounce z-30">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 text-neutral-900"
+            className="h-14 w-14 text-neutral-900"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

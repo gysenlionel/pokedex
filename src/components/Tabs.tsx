@@ -4,7 +4,7 @@ import { Pokemon, Species } from "../types/data.model";
 import About from "./About";
 import Stats from "./Stats";
 import { getSpeciesDetails } from "../hooks/getSpeciesDetails";
-import Evolution from "./Evolution";
+import Evolution from "./Evolution/Evolution";
 
 interface ITabsProps {
   pokeData: Pokemon | undefined;
@@ -29,7 +29,7 @@ const Tabs: React.FunctionComponent<ITabsProps> = ({
     if (fetchSpeciesDetails)
       getSpeciesDetails(urlSpecies, setSpeciesDetails, setFetchEvol);
   }, [urlSpecies, fetchSpeciesDetails]);
-  console.log(speciesDetails);
+  // console.log(speciesDetails);
 
   return (
     <div className="z-0">
