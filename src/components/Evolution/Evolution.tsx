@@ -25,15 +25,14 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
   const [specialPokes, setSpecialPokes] = useState<Pokemon[]>([]);
   const [fetchPoke, setFetchPoke] = useState(false);
   const urlEvol = speciesDetails?.evolution_chain.url ?? "";
-
+  // fetch to get evolution chain
   useEffect(() => {
     setFetchPoke(false);
     if (fetchEvol) getEvol(urlEvol, setEvol, setFetchPoke);
   }, [urlEvol, fetchEvol]);
 
-  // console.log(evol);
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
-
+  // const to get pokemon name
   const pokemon1 = evol?.species.name;
   const pokemon2 =
     evol?.evolves_to?.length! >= 1
@@ -50,10 +49,11 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
     evol?.evolves_to?.length! > 1
       ? evol?.evolves_to!.map((pokemon) => pokemon.species?.name).slice(1)
       : undefined;
-
+  // const to get pokemon with Url
   const pokemonUrl = `${baseUrl}${pokemon1}`;
   const pokemonUrl2 = `${baseUrl}${pokemon2}`;
   const pokemonUrl3 = `${baseUrl}${pokemon3}`;
+  // fetch to get pokemon data to get img
   useEffect(() => {
     if (fetchPoke) {
       getPokeForDetails(pokemonUrl, setPokemon1);
@@ -64,15 +64,20 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
           let specialPokemonUrl = `${baseUrl}${specialPokemon[0]}`;
           getPokeForDetails(specialPokemonUrl, setSpecialPoke);
         } else if (specialPokemon?.length > 1) {
-          getSpecialPokemons(specialPokemon, baseUrl, setSpecialPokes);
+          getSpecialPokemons(
+            specialPokemon,
+            baseUrl,
+            setSpecialPokes,
+            specialPokes
+          );
         }
       }
     }
+    /* eslint-disable */
   }, [pokemonUrl, fetchPoke, pokemonUrl2, pokemonUrl3, pokemon2, pokemon3]);
-
-  console.log(specialPokes);
+  // console.log(evol);
   return (
-    <div className="mb-2">
+    <div className="mb-2 md:mb-4">
       <h2 className="font-bold text-lg text-center mb-4">Evolution Chain</h2>
       {pokemon2 ? (
         <div>
@@ -163,17 +168,15 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
               </div>
             </div>
           )}
-          <div className="flex justify-evenly items-center mt-8">
-            {specialPokemon && (
-              <SpecialPokemon
-                specialPoke={specialPoke}
-                evol={evol}
-                poke2={poke2}
-                specialPokemon={specialPokemon}
-                specialPokes={specialPokes}
-              />
-            )}
-          </div>
+          {specialPokemon && (
+            <SpecialPokemon
+              specialPoke={specialPoke}
+              evol={evol}
+              poke2={poke2}
+              specialPokemon={specialPokemon}
+              specialPokes={specialPokes}
+            />
+          )}
         </div>
       ) : (
         <h4 className="text-base font-semibold text-center">

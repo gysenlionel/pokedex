@@ -1,3 +1,4 @@
+// Exemple 1 : with switch condition
 export const bgColor = (type: string | undefined ) => {
     let color: string = "";
 

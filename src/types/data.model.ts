@@ -103,5 +103,3 @@ export interface Evolution_chain {
         evolves_to?:evolves_to[]
         species:specie;
 }
-
-  

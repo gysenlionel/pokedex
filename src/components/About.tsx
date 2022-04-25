@@ -6,22 +6,33 @@ interface IAboutProps {
   speciesDetails: Species | undefined;
 }
 
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
 const About: React.FunctionComponent<IAboutProps> = ({
   pokeData,
   speciesDetails,
 }) => {
+  // subComponents
+  const Title = ({ children }: LayoutProps) => {
+    return <h4 className="text-slate-700 font-medium ">{children}</h4>;
+  };
+  const Text = ({ children }: LayoutProps) => {
+    return <p className="font-bold text-normal">{children}</p>;
+  };
   return (
-    <div className="mb-2">
-      <div className="flex justify-center ml-10 mr-2">
+    <div className="mb-2 md:mb-4">
+      <div className="flex justify-center ml-8 mr-2">
         <div className="grid grid-cols-2 gap-x-4 ">
-          <h4 className="text-slate-700 font-medium ">Species</h4>
-          <p className="font-bold text-normal">{pokeData?.species.name}</p>
-          <h4 className=" text-slate-700 font-medium ">Height</h4>
-          <p className="font-bold text-normal">{pokeData?.height}</p>
-          <h4 className="text-slate-700 font-medium ">Weight</h4>
-          <p className="font-bold text-normal">{pokeData?.weight}</p>
-          <h4 className="text-slate-700 font-medium ">Abilities</h4>
-          <p className="font-bold text-normal">
+          <Title>Species</Title>
+          <Text>{pokeData?.species.name}</Text>
+          <Title>Height</Title>
+          <Text>{pokeData?.height}</Text>
+          <Title>Weight</Title>
+          <Text>{pokeData?.weight}</Text>
+          <Title>Abilities</Title>
+          <Text>
             {pokeData?.abilities &&
               pokeData?.abilities.map((ability, i) => (
                 <span key={ability.ability.name}>
@@ -29,9 +40,9 @@ const About: React.FunctionComponent<IAboutProps> = ({
                   {pokeData?.abilities.length - 1 !== i && ", "}
                 </span>
               ))}
-          </p>
-          <h4 className="text-slate-700 font-medium ">Held items</h4>
-          <p className="font-bold text-normal">
+          </Text>
+          <Title>Held items</Title>
+          <Text>
             {pokeData?.held_items && pokeData?.held_items?.length <= 0 ? (
               <span>nothing</span>
             ) : (
@@ -42,15 +53,15 @@ const About: React.FunctionComponent<IAboutProps> = ({
                 </span>
               ))
             )}
-          </p>
-          <h4 className="text-slate-700 font-medium ">Habitat</h4>
-          <p className="font-bold text-normal">
+          </Text>
+          <Title>Habitat</Title>
+          <Text>
             {speciesDetails?.habitat
               ? speciesDetails?.habitat.name
               : "not communicated"}
-          </p>
-          <h4 className="text-slate-700 font-medium ">Egg groups</h4>
-          <p className="font-bold text-normal">
+          </Text>
+          <Title>Egg groups</Title>
+          <Text>
             {speciesDetails?.egg_groups &&
               speciesDetails?.egg_groups.map((egg, i) => (
                 <span key={egg.name}>
@@ -58,15 +69,13 @@ const About: React.FunctionComponent<IAboutProps> = ({
                   {speciesDetails?.egg_groups.length - 1 !== i && ", "}
                 </span>
               ))}
-          </p>
-          <h4 className="text-slate-700 font-medium ">Base happiness</h4>
-          <p className="font-bold text-normal">
+          </Text>
+          <Title>Base happiness</Title>
+          <Text>
             {speciesDetails?.base_happiness && speciesDetails?.base_happiness}
-          </p>
-          <h4 className="text-slate-700 font-medium ">Shape</h4>
-          <p className="font-bold text-normal">
-            {speciesDetails?.shape && speciesDetails?.shape.name}
-          </p>
+          </Text>
+          <Title>Shape</Title>
+          <Text>{speciesDetails?.shape && speciesDetails?.shape.name}</Text>
         </div>
       </div>
 

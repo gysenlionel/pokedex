@@ -4,9 +4,7 @@ import pkball from "../assets/images/pokeball.png";
 import pkballCol from "../assets/images/pokeball-color.png";
 import { Link } from "react-router-dom";
 import { badgeType } from "../utils/badgeType";
-
-// import Loader from "../components/Loader";
-// import CartDetails from "../pages/CartDetails";
+import { type } from "../utils/bgColortypeObject";
 
 interface ICartProps {
   pokemon: Pokemon;
@@ -14,54 +12,17 @@ interface ICartProps {
 
 const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   const [isShown, setIsShown] = React.useState<boolean>(false);
+  // check Type object compared to pokemon type api and recovers background color
+  const pokemonType = type[pokemon.types[0].type.name];
 
   return (
     <div className="z-20 relative">
       <Link to={`${pokemon.name}`}>
-        {/* problem with twin.macro when refacto switch can't use transform tailwind with twin */}
         <div
           onMouseOver={() => setIsShown(true)}
           onMouseOut={() => setIsShown(false)}
           className={`relative cursor-pointer transition duration-200
-        ease-in transform sm:hover:scale-105 hover:z-50 ${
-          pokemon.types[0].type.name === "electric"
-            ? "bg-[#F8D030FF]"
-            : pokemon.types[0].type.name === "normal"
-            ? "bg-[#75515BFF]"
-            : pokemon.types[0].type.name === "fire"
-            ? "bg-[#AA1F23]"
-            : pokemon.types[0].type.name === "water"
-            ? "bg-[#6890F0]"
-            : pokemon.types[0].type.name === "grass"
-            ? "bg-[#27CB4FFF]"
-            : pokemon.types[0].type.name === "ice"
-            ? "bg-[#98D8D8]"
-            : pokemon.types[0].type.name === "fighting"
-            ? "bg-[#C03028]"
-            : pokemon.types[0].type.name === "poison"
-            ? "bg-[#A040A0]"
-            : pokemon.types[0].type.name === "ground"
-            ? "bg-[#E0C068]"
-            : pokemon.types[0].type.name === "flying"
-            ? "bg-[#A890F0]"
-            : pokemon.types[0].type.name === "psychic"
-            ? "bg-[#F85888]"
-            : pokemon.types[0].type.name === "bug"
-            ? "bg-[#3B9950FF]"
-            : pokemon.types[0].type.name === "rock"
-            ? "bg-[#B8A038]"
-            : pokemon.types[0].type.name === "ghost"
-            ? "bg-[#705898]"
-            : pokemon.types[0].type.name === "dark"
-            ? "bg-[#5A5979FF]"
-            : pokemon.types[0].type.name === "dragon"
-            ? "bg-[#61CAD9FF]"
-            : pokemon.types[0].type.name === "steel"
-            ? "bg-[#42BD94]"
-            : pokemon.types[0].type.name === "fairy"
-            ? "bg-[#F0B6BC]"
-            : "bg-[#fff]"
-        } rounded overflow-hidden
+        ease-in transform sm:hover:scale-105 hover:z-50 ${pokemonType} rounded overflow-hidden
             shadow-lg shadow-gray-300 max-w-sm relative `}
         >
           <img
@@ -73,11 +34,25 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
                 : "w-48 h-48 absolute top-5  opacity-20 "
             }`}
           />
-          <img
-            src={pokemon.sprites.other.dream_world.front_default}
-            alt="pokemon"
-            className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
-          />
+          {pokemon.sprites.other.dream_world.front_default !== null ? (
+            <img
+              src={pokemon.sprites.other.dream_world.front_default}
+              alt="pokemon"
+              className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
+            />
+          ) : pokemon.sprites.other.home.front_default !== null ? (
+            <img
+              src={pokemon.sprites.other.home.front_default}
+              alt="pokemon"
+              className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
+            />
+          ) : (
+            <img
+              src={pokemon.sprites.front_default}
+              alt="pokemon"
+              className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
+            />
+          )}
           <div className="absolute w-10 h-10 bottom-2 right-4 text-center mr-1">
             <img src={`${badgeType(pokemon.types[0].type.name)}`} alt="types" />
             <p className="absolute w-10 h-9 bottom-8 text-white font-normal">

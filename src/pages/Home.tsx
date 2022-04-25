@@ -7,13 +7,19 @@ import Loader from "../components/Loader";
 import { getPokemons } from "../hooks/getPokemons";
 import { getNextPage } from "../hooks/getNextPage";
 import Search from "../components/Search";
+import { getPokemonSearch } from "../hooks/getPokemonSearch";
+import NotFound from "../components/NotFound";
+
 interface IHomeProps {}
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = React.useState<string>("");
   const [search, setSearch] = React.useState("");
-  // const [loading, setLoading] = React.useState(true);
+  const [arrowLoad, setArrowLoad] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [showSearch, setShowSearch] = React.useState(false);
+  const [pokemonSearch, setPokemonSearch] = React.useState<Pokemon>();
   // state pour infinite scroll
   const [loadPoke, setLoadPoke] = React.useState<boolean>(true);
   const [loadAsync, setLoadAsync] = React.useState<boolean>(false);
@@ -21,8 +27,13 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   // fetch data
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
   React.useEffect(() => {
-    getPokemons(baseUrl, setPokemons, setNextUrl);
+    setArrowLoad(false);
+    getPokemons(baseUrl, setPokemons, setNextUrl, setArrowLoad);
   }, [baseUrl]);
+  // fetch SearchPokemon
+  React.useEffect(() => {
+    getPokemonSearch(search, setPokemonSearch);
+  }, [search]);
 
   // infinite scroll
   const loadMore = () => {
@@ -58,61 +69,86 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   }, [loadPoke, loadAsync, nextUrl, baseUrl]);
 
   // console.log(pokemons);
-  console.log(search);
-  // React.useEffect(() => {
-  //   const loadData = async () => {
-  //     await new Promise((r) => setTimeout(r, 2000));
+  React.useEffect(() => {
+    const loadData = async () => {
+      await new Promise((r) => setTimeout(r, 1500));
 
-  //     setLoading((loading) => !loading);
-  //   };
+      setLoading((loading) => !loading);
+    };
 
-  //   loadData();
-  // }, []);
+    loadData();
+  }, []);
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <Loader fullScreen="w-screen h-screen" />
       ) : (
-        <> */}
-      <Header />
-      <Search setSearch={setSearch} />
-      <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
-        <div
-          className="grid lg:grid-cols-4 md:grid-cols-3
+        <>
+          <Header />
+          <Search
+            setSearch={setSearch}
+            setShowSearch={setShowSearch}
+            search={search}
+          />
+          {!showSearch ? (
+            <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
+              <div
+                className="grid lg:grid-cols-4 md:grid-cols-3
     sm:grid-cols-2 gap-4"
-        >
-          {pokemons.map((pokemon, index) => (
-            <div key={`${pokemon.id}${index}`}>
-              <Cart pokemon={pokemon} key={pokemon.id} />
-            </div>
-          ))}
-        </div>
+              >
+                {pokemons.map((pokemon, index) => (
+                  <div key={`${pokemon.id}${index}`}>
+                    <Cart pokemon={pokemon} key={pokemon.id} />
+                  </div>
+                ))}
+              </div>
 
-        {loadPoke && (
-          <div className=" absolute translate-x-1/2 bottom-72 z-30 mr-28">
-            <Loader />
-          </div>
-        )}
-        <div className=" absolute bottom-24 translate-x-1/2 rounded-full border-neutral-900 border-2 animate-bounce z-30">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-14 w-14 text-neutral-900"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17 13l-5 5m0 0l-5-5m5 5V6"
-            />
-          </svg>
-        </div>
-      </main>
-      {/* </>
-      )} */}
+              {loadPoke && (
+                <div className=" absolute translate-x-1/2 bottom-72 z-30 mr-28">
+                  <Loader />
+                </div>
+              )}
+              {arrowLoad && (
+                <div className=" absolute bottom-24 translate-x-1/2 rounded-full border-neutral-900 border-2 animate-bounce z-30">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-14 w-14 text-neutral-900"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17 13l-5 5m0 0l-5-5m5 5V6"
+                    />
+                  </svg>
+                </div>
+              )}
+            </main>
+          ) : (
+            <main className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50">
+              <div>
+                {typeof pokemonSearch?.name !== "undefined" ? (
+                  <Cart
+                    pokemon={pokemonSearch && pokemonSearch}
+                    key={pokemonSearch && pokemonSearch.id}
+                  />
+                ) : (
+                  <>
+                    <NotFound />
+                    <p className="lg:text-2xl md:text-xl text-base font-semibold text-center mt-4">
+                      Pokemon not found...
+                    </p>
+                  </>
+                )}
+              </div>
+            </main>
+          )}
+        </>
+      )}
     </>
   );
 };
