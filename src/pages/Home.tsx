@@ -9,8 +9,26 @@ import { getNextPage } from "../hooks/getNextPage";
 import Search from "../components/Search";
 import { getPokemonSearch } from "../hooks/getPokemonSearch";
 import NotFound from "../components/NotFound";
+import { motion } from "framer-motion";
 
 interface IHomeProps {}
+
+// framer
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+
+    transition: {
+      staggerChildren: 0.5,
+      duration: 1,
+    },
+  },
+  exit: {
+    x: "-100vw",
+    transition: { ease: "easeInOut", duration: 0.5, delay: 1 },
+  },
+};
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
@@ -80,20 +98,32 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="bg-neutral-50">
       {loading ? (
         <Loader fullScreen="w-screen h-screen" />
       ) : (
-        <>
+        <div className="relative">
           <Header />
-          <Search
-            setSearch={setSearch}
-            setShowSearch={setShowSearch}
-            search={search}
-          />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            className="h-[7vh] bg-neutral-50 flex justify-center items-center relative"
+          >
+            <Search
+              setSearch={setSearch}
+              setShowSearch={setShowSearch}
+              search={search}
+            />
+          </motion.div>
           {!showSearch ? (
             <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
-              <div
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                exit="exit"
                 className="grid lg:grid-cols-4 md:grid-cols-3
     sm:grid-cols-2 gap-4"
               >
@@ -102,7 +132,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <Cart pokemon={pokemon} key={pokemon.id} />
                   </div>
                 ))}
-              </div>
+              </motion.div>
 
               {loadPoke && (
                 <div className=" absolute translate-x-1/2 bottom-72 z-30 mr-28">
@@ -129,7 +159,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
               )}
             </main>
           ) : (
-            <main className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50">
+            <motion.main
+              variants={containerVariants}
+              exit="exit"
+              className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50"
+            >
               <div>
                 {typeof pokemonSearch?.name !== "undefined" ? (
                   <Cart
@@ -145,11 +179,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                   </>
                 )}
               </div>
-            </main>
+            </motion.main>
           )}
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

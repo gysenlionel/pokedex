@@ -2,9 +2,10 @@ import * as React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Pokemon } from "../types/data.model";
-
+import { motion } from "framer-motion";
 interface IStatsProps {
   pokeData: Pokemon | undefined;
+  selectTabStats: Boolean;
 }
 
 interface Progressbar {
@@ -12,7 +13,7 @@ interface Progressbar {
   index: number;
 }
 
-const ProgressBar = styled.div<Progressbar>`
+const ProgressBar = styled(motion.div)<Progressbar>`
   ${tw`
    h-2
    rounded-full
@@ -21,7 +22,10 @@ const ProgressBar = styled.div<Progressbar>`
   width: ${({ width }) => (width > 115 ? 115 : width)}%;
 `;
 
-const Stats: React.FunctionComponent<IStatsProps> = ({ pokeData }) => {
+const Stats: React.FunctionComponent<IStatsProps> = ({
+  pokeData,
+  selectTabStats,
+}) => {
   return (
     <div>
       <div className="flex justify-center ">
@@ -44,7 +48,15 @@ const Stats: React.FunctionComponent<IStatsProps> = ({ pokeData }) => {
               key={`${stat.stat.name}${index}`}
             >
               <div className="w-24 sm:w-36 lg:w-48 bg-gray-300 rounded-full h-2 ">
-                <ProgressBar width={stat.base_stat} index={index}></ProgressBar>
+                <ProgressBar
+                  width={stat.base_stat}
+                  index={index}
+                  initial={{
+                    width: 0,
+                  }}
+                  animate={{ width: selectTabStats && stat.base_stat }}
+                  transition={{ type: "spring", duration: 0.5, delay: 1 }}
+                ></ProgressBar>
               </div>
             </div>
           ))}

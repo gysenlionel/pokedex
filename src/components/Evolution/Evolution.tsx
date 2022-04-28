@@ -76,6 +76,7 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
     /* eslint-disable */
   }, [pokemonUrl, fetchPoke, pokemonUrl2, pokemonUrl3, pokemon2, pokemon3]);
   // console.log(evol);
+
   return (
     <div className="mb-2 md:mb-4">
       <h2 className="font-bold text-lg text-center mb-4">Evolution Chain</h2>

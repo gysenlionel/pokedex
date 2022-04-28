@@ -12,22 +12,22 @@ const NotFound: React.FunctionComponent<INotFoundProps> = (props) => {
       <img
         src={bleu}
         alt="Pokemon bleu"
-        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] object-contain animate-[opacities_3s_alternate_infinite]"
+        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] object-contain animate-[opacities2_2s_alternate_infinite]"
       />
       <img
         src={elephant}
         alt="Pokemon bleu"
-        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2  object-contain delay-1000 animate-[opacities_3s_alternate_infinite]"
+        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2  object-contain animate-[opacities2_2s_0.5s_alternate_infinite]"
       />
       <img
         src={mauve}
         alt="Pokemon bleu"
-        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2 object-contain"
+        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2 object-contain animate-[opacities2_2s_1s_alternate_infinite]"
       />
       <img
         src={tortue}
         alt="Pokemon bleu"
-        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2 object-contain"
+        className="w-[15%] h-[15%] lg:w-[10%] lg:h-[10%] ml-2 object-contain animate-[opacities2_2s_1.5s_alternate_infinite]"
       />
     </div>
   );

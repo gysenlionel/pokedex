@@ -5,10 +5,23 @@ import pkballCol from "../assets/images/pokeball-color.png";
 import { Link } from "react-router-dom";
 import { badgeType } from "../utils/badgeType";
 import { type } from "../utils/bgColortypeObject";
+import { motion } from "framer-motion";
 
 interface ICartProps {
   pokemon: Pokemon;
 }
+// framer
+const cartImgVariants = {
+  // hidden: { opacity: 0 },
+  // visible: {
+  //   opacity: 1,
+  //   transition: { type: "spring", duration: 1, delay: 0.2 },
+  // },
+  exit: {
+    opacity: 0,
+    transition: { type: "spring", duration: 1, delay: 0.5 },
+  },
+};
 
 const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   const [isShown, setIsShown] = React.useState<boolean>(false);
@@ -21,7 +34,7 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
         <div
           onMouseOver={() => setIsShown(true)}
           onMouseOut={() => setIsShown(false)}
-          className={`relative cursor-pointer transition duration-200
+          className={`relative cursor-pointer transition duration-200 
         ease-in transform sm:hover:scale-105 hover:z-50 ${pokemonType} rounded overflow-hidden
             shadow-lg shadow-gray-300 max-w-sm relative `}
         >
@@ -35,19 +48,31 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
             }`}
           />
           {pokemon.sprites.other.dream_world.front_default !== null ? (
-            <img
+            <motion.img
+              variants={cartImgVariants}
+              // initial="hidden"
+              // animate="visible"
+              exit="exit"
               src={pokemon.sprites.other.dream_world.front_default}
               alt="pokemon"
               className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
             />
           ) : pokemon.sprites.other.home.front_default !== null ? (
-            <img
+            <motion.img
+              variants={cartImgVariants}
+              // initial="hidden"
+              // animate="visible"
+              exit="exit"
               src={pokemon.sprites.other.home.front_default}
               alt="pokemon"
               className="relative object-contain h-56 w-full pt-2 px-2 pl-20"
             />
           ) : (
-            <img
+            <motion.img
+              variants={cartImgVariants}
+              // initial="hidden"
+              // animate="visible"
+              exit="exit"
               src={pokemon.sprites.front_default}
               alt="pokemon"
               className="relative object-contain h-56 w-full pt-2 px-2 pl-20"

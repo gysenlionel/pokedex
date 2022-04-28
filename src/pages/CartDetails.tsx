@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Pokemon } from "../types/data.model";
 import { getPokemon } from "../hooks/getPokemon";
@@ -8,6 +8,7 @@ import Tabs from "../components/Tabs";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { bgColor } from "../utils/bgColor";
+import { motion } from "framer-motion";
 
 interface ICartDetailsProps {}
 
@@ -21,6 +22,44 @@ const BackgroundCol = styled.div<InputProps>`
    h-80 rounded-none md:rounded-t-lg 
   `}
 `;
+
+// framer
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.5,
+      duration: 1,
+    },
+  },
+  exit: {
+    x: "-100vw",
+
+    transition: { ease: "easeInOut", duration: 0.5, delay: 1 },
+  },
+};
+
+export const imgVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: { type: "spring", duration: 1.5, delay: 0.8 },
+  },
+};
+
+const topVariants = {
+  initial: {
+    y: -200,
+    transition: { type: "spring", duration: 1.5, delay: 1 },
+  },
+  animate: {
+    y: 0,
+    transition: { type: "spring", duration: 1.5, delay: 1 },
+  },
+};
 
 const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
   const [pokeData, setPokeData] = useState<Pokemon>();
@@ -37,7 +76,11 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
   // console.log(pokeData);
 
   return (
-    <main
+    <motion.main
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      exit="exit"
       className={`flex justify-center items-center 
         mx-0 md:mx-20 `}
     >
@@ -50,12 +93,18 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
               className="w-72 h-72 absolute top-32 opacity-20 z-10"
             />
           </div>
-          <div className="flex justify-around items-center">
+          <motion.div
+            variants={topVariants}
+            initial="initial"
+            animate="animate"
+            className="flex justify-around items-center"
+          >
             <div>
               {/* eslint-disable */}
-              <a
+              <Link
+                to="/"
                 onClick={() => {
-                  window.location.href = "/";
+                  window.location.reload;
                 }}
               >
                 <svg
@@ -72,7 +121,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   ></path>
                 </svg>
-              </a>
+              </Link>
               <h1 className="text-white font-extrabold text-3xl  mt-14">
                 {pokeData?.name}
               </h1>
@@ -96,10 +145,13 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
             <p className="text-white font-bold text-xl mt-14 ">
               Exp-{pokeData?.base_experience}
             </p>
-          </div>
+          </motion.div>
           <div className="flex justify-center">
             {pokeData?.sprites.other.dream_world.front_default !== null ? (
-              <img
+              <motion.img
+                variants={imgVariants}
+                initial="initial"
+                animate="animate"
                 className="object-contain h-48 w-48 absolute z-10"
                 src={pokeData?.sprites.other.dream_world.front_default}
                 alt="pokemon"
@@ -128,7 +180,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
           </div>
         </div>
       </div>
-    </main>
+    </motion.main>
   );
 };
 
