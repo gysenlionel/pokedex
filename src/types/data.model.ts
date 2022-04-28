@@ -93,16 +93,13 @@ interface evolution_details{
 interface specie{
     name:string;
 }
+
+interface evolves_to {
+    species?:specie;
+    evolution_details?: evolution_details[];
+    evolves_to?: evolves_to[];
+}
 export interface Evolution_chain {
-        evolves_to?:[{
-            species?:specie;
-            evolution_details?:[evolution_details],
-            evolves_to?:[{
-                evolution_details?:[evolution_details],
-                species?: specie;
-            }]
-        }],
+        evolves_to?:evolves_to[]
         species:specie;
 }
-
-  

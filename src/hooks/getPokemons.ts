@@ -2,7 +2,8 @@ import axios from "axios";
 import { Pokemon } from "../types/data.model";
 
 export const getPokemons = async (baseUrl:string,setPokemons:React.Dispatch<React.SetStateAction<Pokemon[]>>,
-    setNextUrl: React.Dispatch<React.SetStateAction<string>>) => {
+    setNextUrl: React.Dispatch<React.SetStateAction<string>>,
+    setArrowLoad:React.Dispatch<React.SetStateAction<boolean>>) => {
 
     const res = await axios.get(`${baseUrl}?limit=20`);
       
@@ -13,4 +14,9 @@ export const getPokemons = async (baseUrl:string,setPokemons:React.Dispatch<Reac
         `);
         setPokemons((p) => [...p, poke.data]);
       });
+      const timer = setTimeout(() => {
+        setArrowLoad(true)
+      }, 1000);
+      return () => clearTimeout(timer);
+   
     };

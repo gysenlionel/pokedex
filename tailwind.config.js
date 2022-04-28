@@ -22,6 +22,10 @@ module.exports = {
           '0%': { transform: 'rotate(240deg) translate(-60px) rotate(0deg)' },
           '100%': { transform: 'rotate(600deg) translate(-60px) rotate(0deg)' },
         },
+        opacities2: {
+          '0%': { opacity: "1" },
+          '100%': { opacity: "0.3" }
+        },
       }
     },
   },
