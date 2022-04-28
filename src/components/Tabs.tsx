@@ -17,7 +17,7 @@ const pokeballVariants = {
   initial: {
     transform: "scale(0)",
   },
-  animate: { scale: [0, 1, 1.3, 1] },
+  animate: { scale: [0, 1, 1.2, 1] },
   transition: { type: "spring", duration: 1, delay: 1.4 },
 };
 
