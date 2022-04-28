@@ -54,8 +54,12 @@ const Stats: React.FunctionComponent<IStatsProps> = ({
                   initial={{
                     width: 0,
                   }}
-                  animate={{ width: selectTabStats && stat.base_stat }}
-                  transition={{ type: "spring", duration: 0.5, delay: 1 }}
+                  animate={{
+                    width:
+                      selectTabStats &&
+                      (stat.base_stat > 115 ? 115 + "%" : stat.base_stat + "%"),
+                  }}
+                  transition={{ type: "spring", duration: 0.8, delay: 1 }}
                 ></ProgressBar>
               </div>
             </div>
