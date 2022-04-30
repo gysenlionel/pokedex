@@ -29,14 +29,14 @@ const Cart: React.FunctionComponent<ICartProps> = ({ pokemon }) => {
   const pokemonType = type[pokemon.types[0].type.name];
 
   return (
-    <div className="z-20 relative">
+    <div>
       <Link to={`${pokemon.name}`}>
         <div
           onMouseOver={() => setIsShown(true)}
           onMouseOut={() => setIsShown(false)}
           className={`relative cursor-pointer transition duration-200 
         ease-in transform sm:hover:scale-105 hover:z-50 ${pokemonType} rounded overflow-hidden
-            shadow-lg shadow-gray-300 max-w-sm relative `}
+            shadow-lg shadow-gray-300 max-w-sm `}
         >
           <img
             src={isShown ? pkballCol : pkball}
