@@ -36,7 +36,7 @@ const containerVariants = {
   exit: {
     x: "-100vw",
 
-    transition: { ease: "easeInOut", duration: 0.5, delay: 1 },
+    transition: { ease: "easeInOut", duration: 0.5, delay: 0.2 },
   },
 };
 
@@ -100,13 +100,7 @@ const CartDetails: React.FunctionComponent<ICartDetailsProps> = (props) => {
             className="flex justify-around items-center"
           >
             <div>
-              {/* eslint-disable */}
-              <Link
-                to="/"
-                onClick={() => {
-                  window.location.reload;
-                }}
-              >
+              <Link to="/">
                 <svg
                   className="w-6 h-6 mt-6 absolute text-white cursor-pointer"
                   fill="none"

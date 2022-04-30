@@ -98,11 +98,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
   }, []);
 
   return (
-    <div className="bg-neutral-50">
+    <div className="bg-neutral-50 relative">
       {loading ? (
         <Loader fullScreen="w-screen h-screen" />
       ) : (
-        <div className="relative">
+        <div className="relative z-40">
           <Header />
           <motion.div
             variants={containerVariants}
@@ -125,7 +125,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 animate="show"
                 exit="exit"
                 className="grid lg:grid-cols-4 md:grid-cols-3
-    sm:grid-cols-2 gap-4"
+    sm:grid-cols-2 gap-4 "
               >
                 {pokemons.map((pokemon, index) => (
                   <div key={`${pokemon.id}${index}`}>
@@ -135,12 +135,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
               </motion.div>
 
               {loadPoke && (
-                <div className=" absolute translate-x-1/2 bottom-72 z-30 mr-28">
+                <div className=" absolute translate-x-1/2 bottom-72 z-50 mr-28">
                   <Loader />
                 </div>
               )}
               {arrowLoad && (
-                <div className=" absolute bottom-24 translate-x-1/2 rounded-full border-neutral-900 border-2 animate-bounce z-30">
+                <div className=" absolute bottom-24 translate-x-1/2 rounded-full border-neutral-900 border-2 animate-bounce z-50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-14 w-14 text-neutral-900"
@@ -162,9 +162,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <motion.main
               variants={containerVariants}
               exit="exit"
-              className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50"
+              className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50 "
             >
-              <div>
+              <div className="relative">
                 {typeof pokemonSearch?.name !== "undefined" ? (
                   <Cart
                     pokemon={pokemonSearch && pokemonSearch}

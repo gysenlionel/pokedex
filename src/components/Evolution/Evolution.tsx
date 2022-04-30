@@ -1,12 +1,11 @@
-import * as React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { getEvol } from "../../hooks/getEvol";
 import { getPokeForDetails } from "../../hooks/getPokeForDetails";
 import { getSpecialPokemons } from "../../hooks/getSpecialPokemons";
 import ImgEvolution from "../../subComponents/ImgEvolution";
 import { Evolution_chain, Pokemon, Species } from "../../types/data.model";
 import SpecialPokemon from "./SpecialPokemon";
+import EvolContext from "../../context/EvolContext";
 
 interface IEvolutionProps {
   speciesDetails: Species | undefined;
@@ -24,6 +23,11 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
   const [specialPoke, setSpecialPoke] = useState<Pokemon>();
   const [specialPokes, setSpecialPokes] = useState<Pokemon[]>([]);
   const [fetchPoke, setFetchPoke] = useState(false);
+
+  // context to data for chart
+  const { registerPokemon1, registerPokemon2, registerPokemon3 } =
+    useContext(EvolContext);
+
   const urlEvol = speciesDetails?.evolution_chain.url ?? "";
   // fetch to get evolution chain
   useEffect(() => {
@@ -57,8 +61,14 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
   useEffect(() => {
     if (fetchPoke) {
       getPokeForDetails(pokemonUrl, setPokemon1);
-      if (pokemon2) getPokeForDetails(pokemonUrl2, setPokemon2);
-      if (pokemon3) getPokeForDetails(pokemonUrl3, setPokemon3);
+      if (pokemon2) {
+        getPokeForDetails(pokemonUrl2, setPokemon2);
+        // registerPokemon2(poke2);
+      }
+      if (pokemon3) {
+        getPokeForDetails(pokemonUrl3, setPokemon3);
+        // registerPokemon3(poke3);
+      }
       if (specialPokemon) {
         if (specialPokemon?.length === 1) {
           let specialPokemonUrl = `${baseUrl}${specialPokemon[0]}`;
@@ -75,8 +85,23 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
     }
     /* eslint-disable */
   }, [pokemonUrl, fetchPoke, pokemonUrl2, pokemonUrl3, pokemon2, pokemon3]);
+  // setState EvolContext data to chartjs normal Pokemon
+  useEffect(() => {
+    if (typeof poke1 !== "undefined") {
+      registerPokemon1(poke1);
+    }
+    if (typeof poke2 !== "undefined") {
+      registerPokemon2(poke2);
+    } else {
+      registerPokemon2(null);
+    }
+    if (typeof poke3 !== "undefined") {
+      registerPokemon3(poke3);
+    } else {
+      registerPokemon3(null);
+    }
+  }, [poke1, poke2, poke3]);
   // console.log(evol);
-
   return (
     <div className="mb-2 md:mb-4">
       <h2 className="font-bold text-lg text-center mb-4">Evolution Chain</h2>
