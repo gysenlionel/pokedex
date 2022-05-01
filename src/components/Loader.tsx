@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SvgComponent } from "../svg/svg";
-import pika from "../assets/images/pngegg.png";
+import pika from "../assets/images/pngegg.webp";
 interface IAppProps {
   fullScreen?: string | undefined;
 }

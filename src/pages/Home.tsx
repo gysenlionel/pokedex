@@ -109,7 +109,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             initial="hidden"
             animate="show"
             exit="exit"
-            className="h-[7vh] bg-neutral-50 flex justify-center items-center relative"
+            className="h-[7vh] bg-neutral-50 flex justify-center items-center"
           >
             <Search
               setSearch={setSearch}
@@ -118,14 +118,14 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             />
           </motion.div>
           {!showSearch ? (
-            <main className="relative flex py-3 px-4 justify-center bg-neutral-50">
+            <main className="flex py-3 px-4 justify-center bg-neutral-50">
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
                 exit="exit"
                 className="grid lg:grid-cols-4 md:grid-cols-3
-    sm:grid-cols-2 gap-4 "
+    sm:grid-cols-2 gap-4 relative"
               >
                 {pokemons.map((pokemon, index) => (
                   <div key={`${pokemon.id}${index}`}>
@@ -162,21 +162,21 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <motion.main
               variants={containerVariants}
               exit="exit"
-              className="relative h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50 "
+              className="h-[83vh] flex py-3 px-4 justify-center items-center bg-neutral-50 "
             >
-              <div className="relative">
+              <div className="">
                 {typeof pokemonSearch?.name !== "undefined" ? (
                   <Cart
                     pokemon={pokemonSearch && pokemonSearch}
                     key={pokemonSearch && pokemonSearch.id}
                   />
                 ) : (
-                  <>
+                  <div className="">
                     <NotFound />
                     <p className="lg:text-2xl md:text-xl text-base font-semibold text-center mt-4">
                       Pokemon not found...
                     </p>
-                  </>
+                  </div>
                 )}
               </div>
             </motion.main>

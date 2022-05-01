@@ -13,6 +13,19 @@ import {
 
 interface IChartProps {}
 
+interface IData2 {
+  labels: string[];
+  datasets: [
+    {
+      label: string | null;
+      data: number[] | null;
+      backgroundColor: string | null;
+      borderColor: string | null;
+      borderWidth: number | null;
+    }
+  ];
+}
+
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -23,7 +36,7 @@ ChartJS.register(
 );
 
 const Chart: React.FunctionComponent<IChartProps> = (props) => {
-  const { pokemons } = useContext(EvolContext);
+  const { pokemons, specialPokemonsChart } = useContext(EvolContext);
 
   const data = {
     labels: ["hp", "att", "def", "s-att", "s-def", "speed"],
@@ -31,8 +44,8 @@ const Chart: React.FunctionComponent<IChartProps> = (props) => {
       {
         label: pokemons[0]?.name,
         data: pokemons[0]?.stats.map((stat) => stat.base_stat),
-        backgroundColor: "rgba(255, 99, 133, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
+        backgroundColor: "rgba(170, 31, 35,0.2)",
+        borderColor: "rgba(170, 31, 35,1)",
         borderWidth: 2,
       },
       {
@@ -45,37 +58,79 @@ const Chart: React.FunctionComponent<IChartProps> = (props) => {
       {
         label: pokemons[2]?.name,
         data: pokemons[2]?.stats.map((stat) => stat.base_stat),
-        backgroundColor: "rgba(143, 255, 99, 0.2)",
-        borderColor: "#6ae252",
+        backgroundColor: "rgba(39, 203, 79,0.2)",
+        borderColor: "rgba(39, 203, 79,1)",
         borderWidth: 2,
       },
     ],
-
-    options: {},
   };
 
-  console.log(pokemons);
+  const data2: IData2 = {
+    labels: ["hp", "att", "def", "s-att", "s-def", "speed"],
+    // @ts-ignore
+    datasets: [],
+  };
+
+  const dynamicColors = (opacity: number): string => {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    return `rgba(${r},${g},${b},${opacity})`;
+  };
+  /* eslint-disable */
+  specialPokemonsChart?.map((pokemon) => {
+    data2.datasets.push({
+      label: pokemon.name,
+
+      data: pokemon.stats.map((stat) => stat.base_stat),
+
+      backgroundColor: dynamicColors(0.2),
+
+      borderColor: dynamicColors(1),
+
+      borderWidth: 2,
+    });
+  });
   return (
     <div className="flex flex-col items-center">
       <h2 className="font-bold text-lg text-center mb-4">
         Compares the stats of the different evolutions
       </h2>
       <div className="w-[80vw] h-[50vh] lg:h-[70vh]  mb-4">
-        <Radar
-          data={data}
-          {...props}
-          options={{
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                labels: {
-                  filter: (legendItem, data) =>
-                    typeof legendItem.text !== "undefined",
+        {specialPokemonsChart && specialPokemonsChart?.length < 1 ? (
+          <Radar
+            data={data}
+            {...props}
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    filter: (legendItem) =>
+                      typeof legendItem.text !== "undefined",
+                  },
                 },
               },
-            },
-          }}
-        />
+            }}
+          />
+        ) : (
+          <Radar
+            // @ts-ignore
+            data={data2}
+            {...props}
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    filter: (legendItem) =>
+                      typeof legendItem.text !== "undefined",
+                  },
+                },
+              },
+            }}
+          />
+        )}
       </div>
     </div>
   );

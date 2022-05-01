@@ -6,3 +6,8 @@
   color: #ffcb05ff;
   text-shadow: 2px 2px 1px #3c5ba7ff, -2px -2px 1px #3c5ba7ff;
 }
+
+.grid-col {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}

@@ -23,10 +23,15 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
   const [specialPoke, setSpecialPoke] = useState<Pokemon>();
   const [specialPokes, setSpecialPokes] = useState<Pokemon[]>([]);
   const [fetchPoke, setFetchPoke] = useState(false);
+  const [specPokesToChart, setSpecPokesToChart] = useState<Pokemon[]>([]);
 
   // context to data for chart
-  const { registerPokemon1, registerPokemon2, registerPokemon3 } =
-    useContext(EvolContext);
+  const {
+    registerPokemon1,
+    registerPokemon2,
+    registerPokemon3,
+    registerSpecialPokemons,
+  } = useContext(EvolContext);
 
   const urlEvol = speciesDetails?.evolution_chain.url ?? "";
   // fetch to get evolution chain
@@ -63,11 +68,9 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
       getPokeForDetails(pokemonUrl, setPokemon1);
       if (pokemon2) {
         getPokeForDetails(pokemonUrl2, setPokemon2);
-        // registerPokemon2(poke2);
       }
       if (pokemon3) {
         getPokeForDetails(pokemonUrl3, setPokemon3);
-        // registerPokemon3(poke3);
       }
       if (specialPokemon) {
         if (specialPokemon?.length === 1) {
@@ -101,7 +104,29 @@ const Evolution: React.FunctionComponent<IEvolutionProps> = ({
       registerPokemon3(null);
     }
   }, [poke1, poke2, poke3]);
-  // console.log(evol);
+
+  // specialPokemon to chart
+  const specPokemon =
+    evol?.evolves_to?.length! > 1
+      ? evol?.evolves_to!.map((pokemon) => pokemon.species?.name)
+      : undefined;
+  if (specPokemon && specPokemon.length > 1)
+    specPokemon?.unshift(evol?.species.name);
+
+  useEffect(() => {
+    if (specPokemon) {
+      getSpecialPokemons(
+        specPokemon,
+        baseUrl,
+        setSpecPokesToChart,
+        specPokesToChart
+      );
+    }
+  }, [fetchPoke]);
+
+  useEffect(() => {
+    registerSpecialPokemons(specPokesToChart);
+  }, [specPokesToChart]);
   return (
     <div className="mb-2 md:mb-4">
       <h2 className="font-bold text-lg text-center mb-4">Evolution Chain</h2>
