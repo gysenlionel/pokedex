@@ -1,14 +1,14 @@
 import * as React from "react";
-import bleu from "../assets/images/bouleBleu.png";
-import elephant from "../assets/images/elephant.png";
-import mauve from "../assets/images/mauve.png";
-import tortue from "../assets/images/tortue.png";
+import bleu from "../assets/images/bouleBleu.webp";
+import elephant from "../assets/images/elephant.webp";
+import mauve from "../assets/images/mauve.webp";
+import tortue from "../assets/images/tortue.webp";
 
 interface INotFoundProps {}
 
 const NotFound: React.FunctionComponent<INotFoundProps> = (props) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center sticky">
       <img
         src={bleu}
         alt="Pokemon bleu"

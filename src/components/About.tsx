@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Pokemon, Species } from "../types/data.model";
-
+import "../App.css";
 interface IAboutProps {
   pokeData: Pokemon | undefined;
   speciesDetails: Species | undefined;
@@ -24,9 +24,10 @@ const About: React.FunctionComponent<IAboutProps> = ({
   return (
     <div className="mb-2 md:mb-4">
       <div className="flex justify-center ml-8 mr-2">
-        <div className="grid grid-cols-2 gap-x-4 ">
+        <div className="grid-col gap-x-4 lg:gap-x-6  ">
           <Title>Species</Title>
           <Text>{pokeData?.species.name}</Text>
+
           <Title>Height</Title>
           <Text>{pokeData?.height}</Text>
           <Title>Weight</Title>
