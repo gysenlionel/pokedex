@@ -135,7 +135,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
               </motion.div>
 
               {loadPoke && (
-                <div className=" absolute translate-x-1/2 bottom-72 z-50 mr-28">
+                <div className=" absolute translate-x-1/2 bottom-10 z-50 mr-56">
                   <Loader />
                 </div>
               )}
