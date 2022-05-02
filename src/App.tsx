@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import CartDetails from "./pages/CartDetails";
 import { AnimatePresence } from "framer-motion";
 import { EvolContextProvider } from "./context/EvolContext";
-
 function App() {
   const location = useLocation();
   return (

@@ -81,13 +81,9 @@ const Chart: React.FunctionComponent<IChartProps> = (props) => {
   specialPokemonsChart?.map((pokemon) => {
     data2.datasets.push({
       label: pokemon.name,
-
       data: pokemon.stats.map((stat) => stat.base_stat),
-
       backgroundColor: dynamicColors(0.2),
-
       borderColor: dynamicColors(1),
-
       borderWidth: 2,
     });
   });
@@ -97,40 +93,26 @@ const Chart: React.FunctionComponent<IChartProps> = (props) => {
         Compares the stats of the different evolutions
       </h2>
       <div className="w-[80vw] h-[50vh] lg:h-[70vh]  mb-4">
-        {specialPokemonsChart && specialPokemonsChart?.length < 1 ? (
-          <Radar
-            data={data}
-            {...props}
-            options={{
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  labels: {
-                    filter: (legendItem) =>
-                      typeof legendItem.text !== "undefined",
-                  },
+        <Radar
+          // @ts-ignore
+          data={
+            specialPokemonsChart && specialPokemonsChart?.length < 1
+              ? data
+              : data2
+          }
+          {...props}
+          options={{
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  filter: (legendItem) =>
+                    typeof legendItem.text !== "undefined",
                 },
               },
-            }}
-          />
-        ) : (
-          <Radar
-            // @ts-ignore
-            data={data2}
-            {...props}
-            options={{
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  labels: {
-                    filter: (legendItem) =>
-                      typeof legendItem.text !== "undefined",
-                  },
-                },
-              },
-            }}
-          />
-        )}
+            },
+          }}
+        />
       </div>
     </div>
   );
