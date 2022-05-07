@@ -67,9 +67,8 @@ const Chart: React.FunctionComponent<IChartProps> = (props) => {
 
   const data2: IData2 = {
     labels: ["hp", "att", "def", "s-att", "s-def", "speed"],
-    // @ts-ignore
-    datasets: [],
-  };
+    datasets: [] as any,
+  } as IData2;
 
   const dynamicColors = (opacity: number): string => {
     let r = Math.floor(Math.random() * 255);
