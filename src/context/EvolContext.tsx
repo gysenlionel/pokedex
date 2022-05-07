@@ -14,8 +14,7 @@ interface EvolContextInterface {
   specialPokemonsChart: Pokemon[] | null;
 }
 
-// @ts-ignore
-const EvolContext = createContext<EvolContextInterface>();
+const EvolContext = createContext({} as EvolContextInterface);
 
 export const EvolContextProvider = ({ children }: EvolContextProviderProps) => {
   const [pokemon1, setPokemon] = useState<Pokemon>();
